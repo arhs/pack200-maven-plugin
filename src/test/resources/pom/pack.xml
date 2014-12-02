@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+
+    <modelVersion>4.0.0</modelVersion>
+
+    <groupId>com.arhs.test</groupId>
+    <artifactId>my-simple-applet</artifactId>
+    <version>1.0</version>
+    <packaging>jar</packaging>
+
+    <build>
+        <plugins>
+            <plugin>
+                <groupId>com.arhs.maven.plugins</groupId>
+                <artifactId>pack200-maven-plugin</artifactId>
+                <configuration>
+                    <target>src/test/resources/</target>
+                    <inputFile>my-applet.jar</inputFile>
+                    <outputFile>src/test/resources/my-applet.jar.pack.gz</outputFile>
+                </configuration>
+            </plugin>
+        </plugins>
+    </build>
+</project>
