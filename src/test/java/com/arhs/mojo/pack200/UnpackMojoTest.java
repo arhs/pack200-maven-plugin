@@ -46,26 +46,40 @@ public class UnpackMojoTest extends AbstractMojoTest {
     //</editor-fold>
 
     //<editor-fold desc="Methods section.">
+    private UnpackMojo unpackMojo;
+    private File inputJarFile;
+
+
+    @Override
+    public void setUp() throws Exception {
+        super.setUp();
+        // Get mojo object.
+        unpackMojo = createMojoByPomFile("src/test/resources/pom/unpack.xml", "unpack");
+
+        // Create a JAR file by the "inputFile" parameter.
+        inputJarFile = copyJar(unpackMojo.target, unpackMojo.inputFile, UNPACK_FILE_ORIGINAL);
+    }
+
+    @Override
+    public void tearDown() throws Exception {
+        super.tearDown();
+        // Clean generated files.
+        inputJarFile.delete();
+        unpackMojo.outputFile.delete();
+    }
 
     /**
      * Test for create a compressed JAR file.
      * @throws Exception If the input JAR file couldn't be copied or that mojo object couldn't be executed.
      */
     public void testPack() throws Exception {
-        // Get mojo object.
-        final UnpackMojo unpackMojo = createMojoByPomFile("src/test/resources/pom/unpack.xml", "unpack");
 
-        // Create a JAR file by the "inputFile" parameter.
-        final File inputJarFile = copyJar(unpackMojo.target, unpackMojo.inputFile, UNPACK_FILE_ORIGINAL);
         unpackMojo.execute();
 
         // Checks if input JAR file and output JAR file exists.
         assertTrue(inputJarFile.exists());
         assertTrue(unpackMojo.outputFile.exists());
 
-        // Clean generated files.
-        inputJarFile.delete();
-        unpackMojo.outputFile.delete();
     }
 
     //</editor-fold>
