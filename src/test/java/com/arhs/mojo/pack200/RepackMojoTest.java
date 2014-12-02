@@ -24,11 +24,8 @@ package com.arhs.mojo.pack200;
  */
 
 import com.arhs.mojo.pack200.pack.RepackMojo;
-import org.junit.runner.RunWith;
-import org.junit.runners.Parameterized;
 
 import java.io.File;
-import java.util.Arrays;
 
 /**
  * Unit tests for {@code RepackMojo} class.
