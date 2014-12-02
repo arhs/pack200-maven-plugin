@@ -24,9 +24,11 @@ package com.arhs.mojo.pack200;
  */
 
 import com.arhs.mojo.pack200.pack.RepackMojo;
+import org.junit.runner.RunWith;
+import org.junit.runners.Parameterized;
 
 import java.io.File;
-import java.io.IOException;
+import java.util.Arrays;
 
 /**
  * Unit tests for {@code RepackMojo} class.
@@ -50,6 +52,16 @@ public class RepackMojoTest extends AbstractMojoTest {
 
     //<editor-fold desc="Private methods section.">
 
+    private RepackMojo repackMojo;
+    private File inputJarFile;
+
+    @Override
+    public void tearDown() throws Exception {
+        super.tearDown();
+        // Clean generated files.
+        inputJarFile.delete();
+    }
+
     /**
      * Test for packing and unpacking a JAR file with a specific POM file.
      *
@@ -58,17 +70,15 @@ public class RepackMojoTest extends AbstractMojoTest {
      */
     private void testRepack(String pomFile) throws Exception {
         // Get mojo object.
-        final RepackMojo repackMojo = createMojoByPomFile(pomFile, "repack");
+        repackMojo = createMojoByPomFile(pomFile, "repack");
 
         // Create a JAR file by the "inputFile" parameter.
-        final File inputJarFile = copyJar(repackMojo.target, repackMojo.inputFile, JAR_FILE_ORIGINAL);
+        inputJarFile = copyJar(repackMojo.target, repackMojo.inputFile, JAR_FILE_ORIGINAL);
         repackMojo.execute();
 
         // Checks if the input JAR file exists.
         assertTrue("No input JAR file was created.", inputJarFile.exists());
 
-        // Clean generated files.
-        inputJarFile.delete();
     }
 
     //</editor-fold>
