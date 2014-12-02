@@ -47,21 +47,37 @@ public class PackMojoTest extends AbstractMojoTest {
 
     //<editor-fold desc="Methods section.">
 
+    private PackMojo packMojo;
+    private File inputJarFile;
+
+    @Override
+    public void setUp() throws Exception {
+        super.setUp();
+        // Get mojo object.
+        packMojo = createMojoByPomFile("src/test/resources/pom/pack-log.xml", "pack");
+
+        // Create a JAR file by the "inputFile" parameter.
+        inputJarFile = copyJar(packMojo.target, packMojo.inputFile, JAR_FILE_ORIGINAL);
+    }
+
+    @Override
+    public void tearDown() throws Exception {
+        super.tearDown();
+        // Clean generated files
+        inputJarFile.delete();
+        packMojo.outputFile.delete();
+        packMojo.logFile.delete();
+    }
+
     /**
      * Test for create a compressed JAR file.
      * @throws Exception
      */
     public void testPack() throws Exception {
-        // Get mojo object.
-        final PackMojo packMojo = createMojoByPomFile("src/test/resources/pom/pack-log.xml", "pack");
 
-        // Create a JAR file by the "inputFile" parameter.
-        final File inputJarFile = copyJar(packMojo.target, packMojo.inputFile, JAR_FILE_ORIGINAL);
         packMojo.execute();
 
-        // Clean generated files
-        inputJarFile.delete();
-        packMojo.outputFile.delete();
+
     }
 
     /**
@@ -69,11 +85,7 @@ public class PackMojoTest extends AbstractMojoTest {
      * @throws Exception
      */
     public void testPackLogFile() throws Exception {
-        // Get mojo object.
-        final PackMojo packMojo = createMojoByPomFile("src/test/resources/pom/pack-log.xml", "pack");
 
-        // Create a JAR file by the "inputFile" parameter.
-        final File inputJarFile = copyJar(packMojo.target, packMojo.inputFile, JAR_FILE_ORIGINAL);
         packMojo.execute();
 
         // Checks if input JAR file, log file and output file exists.
@@ -81,10 +93,7 @@ public class PackMojoTest extends AbstractMojoTest {
         assertTrue("No log file was created.", packMojo.logFile.exists());
         assertTrue("No output JAR file was created.", packMojo.outputFile.exists());
 
-                // Clean generated files.
-        inputJarFile.delete();
-        packMojo.logFile.delete();
-        packMojo.outputFile.delete();
+
     }
 
     //</editor-fold>
