@@ -238,6 +238,7 @@ public class UnpackMojo extends AbstractPluginMojo {
         addVerboseArgument();
         addQuietArgument();
         addLogFileArgument();
+        addOptions();
 
         // Input JAR file.
         addJarFile();

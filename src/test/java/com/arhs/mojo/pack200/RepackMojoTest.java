@@ -45,19 +45,18 @@ public class RepackMojoTest extends AbstractMojoTest {
 
     //</editor-fold>
 
+    //<editor-fold desc="Fields section.">
+
+    /**
+     * Input JAR file.
+     */
+    private File inputJarFile;
+
+    //</editor-fold>
+
     //<editor-fold desc="Methods section.">
 
     //<editor-fold desc="Private methods section.">
-
-    private RepackMojo repackMojo;
-    private File inputJarFile;
-
-    @Override
-    public void tearDown() throws Exception {
-        super.tearDown();
-        // Clean generated files.
-        inputJarFile.delete();
-    }
 
     /**
      * Test for packing and unpacking a JAR file with a specific POM file.
@@ -67,7 +66,7 @@ public class RepackMojoTest extends AbstractMojoTest {
      */
     private void testRepack(String pomFile) throws Exception {
         // Get mojo object.
-        repackMojo = createMojoByPomFile(pomFile, "repack");
+        RepackMojo repackMojo = createMojoByPomFile(pomFile, "repack");
 
         // Create a JAR file by the "inputFile" parameter.
         inputJarFile = copyJar(repackMojo.target, repackMojo.inputFile, JAR_FILE_ORIGINAL);
@@ -75,7 +74,20 @@ public class RepackMojoTest extends AbstractMojoTest {
 
         // Checks if the input JAR file exists.
         assertTrue("No input JAR file was created.", inputJarFile.exists());
+    }
 
+    //</editor-fold>
+
+    //<editor-fold desc="Protected methods section.">
+
+    /**
+     * {@inheritDoc}
+     */
+    protected void tearDown() throws Exception {
+        super.tearDown();
+
+        // Clean generated files.
+        inputJarFile.delete();
     }
 
     //</editor-fold>

@@ -116,9 +116,21 @@ public class AbstractPluginMojo extends AbstractMojo {
      *
      * @param name  Argument name.
      * @param value Argument value.
+     * @see AbstractPluginMojo#addArgument(String, String, String)
      */
     protected void addArgument(String name, String value) {
-        addArgument(String.format("%s=%s", name, value));
+        addArgument(name, value, "=");
+    }
+
+    /**
+     * Adds a argument with its value and using a assignment operator.
+     *
+     * @param name                  Argument name.
+     * @param value                 Argument value.
+     * @param assignmentOperator    Assignment operator.
+     */
+    protected void addArgument(String name, String value, String assignmentOperator) {
+        addArgument(String.format("%s%s%s", name, assignmentOperator, value));
     }
 
     /**

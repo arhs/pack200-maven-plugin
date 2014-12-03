@@ -45,55 +45,79 @@ public class PackMojoTest extends AbstractMojoTest {
 
     //</editor-fold>
 
-    //<editor-fold desc="Methods section.">
+    //<editor-fold desc="Fields section.">
 
-    private PackMojo packMojo;
+    /**
+     * Input JAR file.
+     */
     private File inputJarFile;
 
-    @Override
-    public void setUp() throws Exception {
-        super.setUp();
-        // Get mojo object.
-        packMojo = createMojoByPomFile("src/test/resources/pom/pack-log.xml", "pack");
+    /**
+     * Pack mojo object.
+     */
+    private PackMojo packMojo;
 
-        // Create a JAR file by the "inputFile" parameter.
-        inputJarFile = copyJar(packMojo.target, packMojo.inputFile, JAR_FILE_ORIGINAL);
-    }
+    //</editor-fold>
 
-    @Override
-    public void tearDown() throws Exception {
-        super.tearDown();
-        // Clean generated files
-        inputJarFile.delete();
-        packMojo.outputFile.delete();
-        packMojo.logFile.delete();
-    }
+    //<editor-fold desc="Methods section.">
+
+    //<editor-fold desc="Private methods section.">
 
     /**
      * Test for create a compressed JAR file.
-     * @throws Exception
+     *
+     * @param pomFile       POM file.
+     * @throws Exception    If the input JAR file couldn't be copied or that mojo object couldn't be executed.
      */
-    public void testPack() throws Exception {
+    private void testPack(String pomFile) throws Exception {
+        // Get mojo object.
+        packMojo = createMojoByPomFile(pomFile, "pack");
 
+        // Create a JAR file by the "inputFile" parameter.
+        inputJarFile = copyJar(packMojo.target, packMojo.inputFile, JAR_FILE_ORIGINAL);
         packMojo.execute();
 
-
+        // Checks if the input JAR file exists.
+        assertTrue("No input JAR file was created.", inputJarFile.exists());
+        assertTrue("No output JAR file was created.", packMojo.outputFile.exists());
     }
+
+    //</editor-fold>
+
+    //<editor-fold desc="Protected methods section.">
+
+    /**
+     * {@inheritDoc}
+     */
+    protected void tearDown() throws Exception {
+        super.tearDown();
+
+        // Clean generated files.
+        inputJarFile.delete();
+        packMojo.outputFile.delete();
+    }
+
+    //</editor-fold>
 
     /**
      * Test for create a compressed JAR file and create a log file.
      * @throws Exception
      */
     public void testPackLogFile() throws Exception {
+        testPack("src/test/resources/pom/pack-log.xml");
 
-        packMojo.execute();
-
-        // Checks if input JAR file, log file and output file exists.
-        assertTrue("No input JAR file was created.", inputJarFile.exists());
+        // Checks if log file exists.
         assertTrue("No log file was created.", packMojo.logFile.exists());
-        assertTrue("No output JAR file was created.", packMojo.outputFile.exists());
 
-
+        // Clean generated file.
+        packMojo.logFile.delete();
+    }
+    /**
+     * Test for create a compressed JAR file and create a log file.
+     * @throws Exception
+     */
+    public void testPackOptions() throws Exception {
+        testPack("src/test/resources/pom/pack-options.xml");
     }
 
     //</editor-fold>

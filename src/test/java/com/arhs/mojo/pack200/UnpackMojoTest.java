@@ -45,41 +45,59 @@ public class UnpackMojoTest extends AbstractMojoTest {
 
     //</editor-fold>
 
-    //<editor-fold desc="Methods section.">
-    private UnpackMojo unpackMojo;
+    //<editor-fold desc="Fields section.">
+
+    /**
+     * Input JAR file.
+     */
     private File inputJarFile;
 
+    /**
+     * Unpack mojo object.
+     */
+    private UnpackMojo unpackMojo;
 
-    @Override
-    public void setUp() throws Exception {
+    //</editor-fold>
+
+    //<editor-fold desc="Methods section.">
+
+    //<editor-fold desc="Protected methods section.">
+
+    /**
+     * {@inheritDoc}
+     */
+    protected void setUp() throws Exception {
         super.setUp();
+
         // Get mojo object.
         unpackMojo = createMojoByPomFile("src/test/resources/pom/unpack.xml", "unpack");
-
         // Create a JAR file by the "inputFile" parameter.
         inputJarFile = copyJar(unpackMojo.target, unpackMojo.inputFile, UNPACK_FILE_ORIGINAL);
     }
 
-    @Override
-    public void tearDown() throws Exception {
+    /**
+     * {@inheritDoc}
+     */
+    protected void tearDown() throws Exception {
         super.tearDown();
+
         // Clean generated files.
         inputJarFile.delete();
         unpackMojo.outputFile.delete();
     }
+
+    //</editor-fold>
 
     /**
      * Test for create a compressed JAR file.
      * @throws Exception If the input JAR file couldn't be copied or that mojo object couldn't be executed.
      */
     public void testPack() throws Exception {
-
         unpackMojo.execute();
 
         // Checks if input JAR file and output JAR file exists.
-        assertTrue(inputJarFile.exists());
-        assertTrue(unpackMojo.outputFile.exists());
-
+        assertTrue("No input JAR file was created.", inputJarFile.exists());
+        assertTrue("No output JAR file was created.", unpackMojo.outputFile.exists());
     }
 
     //</editor-fold>

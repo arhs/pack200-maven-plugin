@@ -250,7 +250,7 @@ public abstract class AbstractPackMojo extends AbstractPluginMojo {
     private void addOptions() {
         if ((options != null) && (options.size() > 0)) {
             for (String option : options) {
-                addArgument("-J", option);
+                addArgument("-J", option, "");
             }
         }
     }
@@ -316,8 +316,8 @@ public abstract class AbstractPackMojo extends AbstractPluginMojo {
      * @see AbstractPackMojo#segmentLimit
      */
     private void addSegmentLimit() {
-        if (segmentLimit > 0) {
-            addArgument("--segment-limit=", String.valueOf(segmentLimit));
+        if (segmentLimit != 0) {
+            addArgument("--segment-limit", String.valueOf(segmentLimit));
         }
     }
 
@@ -339,7 +339,7 @@ public abstract class AbstractPackMojo extends AbstractPluginMojo {
      */
     private void addUnknown() {
         if (unknownAttribute != null) {
-            addArgument("--unknown-attribute=", unknownAttribute.name().toLowerCase());
+            addArgument("--unknown-attribute", unknownAttribute.name().toLowerCase());
         }
     }
 
@@ -349,7 +349,7 @@ public abstract class AbstractPackMojo extends AbstractPluginMojo {
      * @see AbstractPackMojo#verbose
      */
     private void addVerboseArgument() {
-        if (verbose && !verbose) {
+        if (verbose && !quiet) {
             addArgument("--verbose");
         }
     }
