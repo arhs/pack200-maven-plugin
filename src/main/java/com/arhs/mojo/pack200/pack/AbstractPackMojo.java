@@ -368,8 +368,9 @@ public abstract class AbstractPackMojo extends AbstractPluginMojo {
     /**
      * Perform whatever build-process behavior this Mojo implements.
      *
-     * @throws MojoExecutionException If an unexpected problem occurs. Throwing this exception
-     *                                causes a <b>BUILD ERROR</b> message to be displayed.
+     * @param outputFile                Output JAR file.
+     * @throws MojoExecutionException   If an unexpected problem occurs. Throwing this exception
+     *                                  causes a <b>BUILD ERROR</b> message to be displayed.
      */
     public void execute(File outputFile) throws MojoExecutionException {
         // Options.

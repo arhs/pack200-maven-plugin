@@ -101,7 +101,7 @@ public class PackMojoTest extends AbstractMojoTest {
 
     /**
      * Test for create a compressed JAR file and create a log file.
-     * @throws Exception
+     * @throws Exception If an error occurs during the test.
      */
     public void testPackLogFile() throws Exception {
         testPack("src/test/resources/pom/pack-log.xml");
@@ -114,7 +114,7 @@ public class PackMojoTest extends AbstractMojoTest {
     }
     /**
      * Test for create a compressed JAR file and create a log file.
-     * @throws Exception
+     * @throws Exception If an error occurs during the test.
      */
     public void testPackOptions() throws Exception {
         testPack("src/test/resources/pom/pack-options.xml");

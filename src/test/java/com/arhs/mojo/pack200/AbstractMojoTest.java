@@ -66,11 +66,11 @@ public abstract class AbstractMojoTest extends AbstractMojoTestCase {
     /**
      * Create a Mojo object by POM file and goal name.
      *
-     * @param pomFile   POM file.
-     * @param goal      Goal name.
-     * @param <TMojo>   Type of mojo object.
-     * @return          Mojo object.
-     * @throws Exception
+     * @param pomFile       POM file.
+     * @param goal          Goal name.
+     * @param <TMojo>       Type of mojo object.
+     * @return              Mojo object.
+     * @throws Exception    If mojo object couldn't be retrieved or POM file doesn't exists.
      */
     protected  <TMojo> TMojo createMojoByPomFile(String pomFile, String goal) throws Exception {
         // Get POM file.
@@ -87,10 +87,11 @@ public abstract class AbstractMojoTest extends AbstractMojoTestCase {
     /**
      * Creates a copy of the original JAR file.
      *
-     * @param path      Path to the directory that will contain the copy.
-     * @param filename  File name copy.
-     * @return          Path to File name copied.
-     * @throws IOException
+     * @param path          Path to the directory that will contain the copy.
+     * @param filename      File name copy.
+     * @param originalFile  Original file name.
+     * @return              Path to File name copied.
+     * @throws IOException  If the copy of the original file fails.
      */
     protected File copyJar(File path, String filename, String originalFile) throws IOException {
         final File inputJarFileOriginal = new File(originalFile);
@@ -103,11 +104,11 @@ public abstract class AbstractMojoTest extends AbstractMojoTestCase {
     /**
      * Gets mojo by goal name and POM file.
      *
-     * @param goal      Goal name.
-     * @param pom       POM file.
-     * @param <TMojo>   Type of mojo.
-     * @return          A mojo.
-     * @throws Exception
+     * @param goal          Goal name.
+     * @param pom           POM file.
+     * @param <TMojo>       Type of mojo.
+     * @return              A mojo object.
+     * @throws Exception    If mojo object couldn't be retrieved.
      */
     @SuppressWarnings("unchecked")
     protected <TMojo> TMojo getMojo(String goal, File pom) throws Exception {

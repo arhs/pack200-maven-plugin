@@ -65,6 +65,8 @@ public class AbstractPluginMojo extends AbstractMojo {
 
     /**
      * Constructor.
+     *
+     * @param command Command name.
      */
     protected AbstractPluginMojo(String command) {
         this(CommandLine.parse(command), new DefaultExecutor());
