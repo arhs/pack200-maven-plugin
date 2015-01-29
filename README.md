@@ -1,4 +1,5 @@
 # pack200-maven-plugin
+[![Build Status](https://travis-ci.org/arhs/pack200-maven-plugin.svg)](https://travis-ci.org/arhs/pack200-maven-plugin) for Travis CI passing
 
 Plugin to use pack200 and unpack200 command from a maven project.
 
