@@ -2,7 +2,7 @@ package com.arhs.mojo.pack200.pack;
 
 /**
  * The MIT License (MIT)
- * Copyright (c) 2014 ARHS Developments SA
+ * Copyright (c) 2015 ARHS Developments SA
  *
  * Permission is hereby granted, free of charge, to any person obtaining a copy
  * of this software and associated documentation files (the "Software"), to deal
@@ -111,7 +111,7 @@ public abstract class AbstractPackMojo extends AbstractPluginMojo {
     public boolean noKeepFileOrder;
 
     /**
-     * Pptions to the Java Virtual Machine.
+     * Options to the Java Virtual Machine.
      */
     @Parameter
     public List<String> options;

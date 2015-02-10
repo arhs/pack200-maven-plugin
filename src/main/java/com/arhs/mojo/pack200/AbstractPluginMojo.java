@@ -2,7 +2,7 @@ package com.arhs.mojo.pack200;
 
 /**
  * The MIT License (MIT)
- * Copyright (c) 2014 ARHS Developments SA
+ * Copyright (c) 2015 ARHS Developments SA
  *
  * Permission is hereby granted, free of charge, to any person obtaining a copy
  * of this software and associated documentation files (the "Software"), to deal
@@ -25,6 +25,7 @@ package com.arhs.mojo.pack200;
 
 import org.apache.commons.exec.CommandLine;
 import org.apache.commons.exec.DefaultExecutor;
+import org.apache.commons.exec.Executor;
 import org.apache.maven.plugin.AbstractMojo;
 import org.apache.maven.plugin.MojoExecutionException;
 import org.apache.maven.plugins.annotations.Parameter;
@@ -46,12 +47,12 @@ public class AbstractPluginMojo extends AbstractMojo {
     /**
      * Command.
      */
-    private CommandLine command;
+    private final CommandLine command;
 
     /**
      * Executor.
      */
-    private DefaultExecutor executor;
+    private final DefaultExecutor executor;
 
     /**
      * Debug mode.
@@ -95,13 +96,20 @@ public class AbstractPluginMojo extends AbstractMojo {
      * @see AbstractPluginMojo#command
      * @see AbstractPluginMojo#executor
      */
-    private void executeCommand() throws IOException {
+    private void executeCommand() throws IOException, MojoExecutionException {
         if (debug) {
             getLog().info("Executable: " + command.getExecutable());
             getLog().info("Arguments: " + StringUtils.join(command.getArguments(), " "));
         }
 
-        executor.execute(command);
+        int processExitValue = executor.execute(command);
+        if (debug) {
+            getLog().info(String.format("Process returned %d (0x%01X)", processExitValue, processExitValue));
+        }
+
+        if (processExitValue == Executor.INVALID_EXITVALUE) {
+            throw new MojoExecutionException("An error occurred during the execution of the program.");
+        }
     }
 
     /**
